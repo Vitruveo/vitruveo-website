@@ -70,7 +70,7 @@ export default function PSCLayout({ children }) {
           border-bottom: 1px solid #333;
           padding: 0.75rem 0;
           position: fixed;
-          top: 72px;
+          top: 108px;
           left: 0;
           right: 0;
           z-index: 100;

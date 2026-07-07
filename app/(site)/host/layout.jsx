@@ -98,7 +98,7 @@ function HostLayoutInner({ children }) {
           border-bottom: 1px solid #333;
           padding: 0.75rem 0;
           position: fixed;
-          top: 72px;
+          top: 108px;
           left: 0;
           right: 0;
           z-index: 101;
@@ -114,11 +114,6 @@ function HostLayoutInner({ children }) {
         }
         .host-content {
           padding-top: 60px;
-        }
-        @media (max-width: 576px) {
-          .host-nav-bar {
-            top: 56px;
-          }
         }
       `}</style>
     </>

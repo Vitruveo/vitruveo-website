@@ -2,15 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Overview - Vitruveo',
+  title: 'About - Vitruveo',
   description: 'Webhooks for Web3. Smart contracts have always been silent—Vitruveo gives them a voice. The first EVM chain where contracts speak HTTP.',
 };
 
-export default function OverviewPage() {
+export default function AboutPage() {
   return (
     <>
       {/* Hero with Video */}
-      <section className="page-hero d-flex align-items-center" style={{ marginTop: '-72px' }}>
+      <section className="page-hero d-flex align-items-center" style={{ marginTop: '-108px' }}>
         <video autoPlay muted loop playsInline className="video-bg">
           <source src="/videos/ecosystem.mp4" type="video/mp4" />
         </video>
@@ -73,31 +73,8 @@ export default function OverviewPage() {
         </div>
       </section>
 
-      {/* Xibit AI Feature */}
-      <section className="section-dark-2 py-5">
-        <div className="container">
-          <div className="row align-items-center g-4">
-            <div className="col-lg-6">
-              <p className="text-muted-light mb-0" style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
-                <strong className="text-white">Xibit</strong> is actively leveraging Vitruveo's new Protocol Smart Contract capabilities to introduce powerful AI features into its platform. By integrating with HOST, Xibit will enable smart contracts to trigger AI-driven workflows—from intelligent art curation and recommendation engines to automated licensing and royalty distribution powered by on-chain logic and off-chain intelligence.
-              </p>
-            </div>
-            <div className="col-lg-6 d-flex justify-content-center">
-              <div style={{ aspectRatio: '16/9', position: 'relative', width: '50%' }}>
-                <Image
-                  src="/images/xibitai.png"
-                  alt="Xibit AI capabilities"
-                  fill
-                  style={{ objectFit: 'cover', borderRadius: '12px' }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Real-World Scenarios */}
-      <section className="section-dark py-5">
+      <section className="section-dark-2 py-5">
         <div className="container">
           <h2 className="text-white mb-2">Real-World Scenarios</h2>
           <p className="text-muted-light mb-5">Concrete examples of what Protocol Smart Contracts enable</p>
@@ -249,38 +226,48 @@ export default function OverviewPage() {
         </div>
       </section>
 
-      {/* Featured Apps */}
-      <section className="section-dark-2 py-5">
+      {/* Featured App: Pretrend */}
+      <section className="section-dark py-5">
         <div className="container">
-          <h2 className="text-white mb-4">Featured Apps</h2>
-          <div className="row g-4">
-            <div className="col-md-6 col-lg-4">
-              <div className="card card-dark p-4 rounded-3 h-100">
-                <div className="mb-3" style={{ height: '36px' }}>
-                  <Image src="/images/xibit.webp" alt="Xibit" width={100} height={36} style={{ objectFit: 'contain' }} />
-                </div>
-                <p className="text-muted-light small mb-3"><strong className="text-white">Xibit:</strong> AI infrastructure for global art economy</p>
-                <a href="https://xibit.app" target="_blank" rel="noopener noreferrer" className="text-vtru-green">
-                  Visit xibit.app →
-                </a>
+          <h2 className="text-white mb-4">Featured App: Pretrend</h2>
+          <div className="row g-4 align-items-center">
+            <div className="col-lg-8">
+              <div className="d-flex align-items-center gap-3 mb-3">
+                <Image src="/images/pretrend.png" alt="Pretrend" width={48} height={48} style={{ objectFit: 'contain' }} />
+                <h4 className="text-white mb-0">Pretrend Protocol</h4>
               </div>
+              <p className="text-muted-light mb-3">
+                Pretrend is a trend-based oracle protocol that lets prediction markets resolve on
+                directional movement instead of binary outcomes. Users predict the magnitude and
+                direction of change—how far and which way—not just whether an event occurs. If
+                Bitcoin rises from $60,000 to $99,000, a binary "$100K by year end?" market pays
+                nothing to participants who were directionally correct. Pretrend captures that nuance.
+              </p>
+              <p className="text-muted-light mb-3">
+                It runs on Vitruveo's native Trend precompile, computing OLS regression, R-squared,
+                and volatility on-chain at compiled machine-code speed. Trend results map to one of
+                five outcome buckets calibrated to each data source's historical volatility, a bonding
+                curve rewards early conviction, and HOST pushes resolutions cross-chain to marketplace
+                contracts on BSC and other EVM chains.
+              </p>
+              <a href="https://www.verticalfoundation.net/pretrend" target="_blank" rel="noopener noreferrer" className="text-vtru-green">
+                Learn more at verticalfoundation.net →
+              </a>
             </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card card-dark p-4 rounded-3 h-100">
-                <div className="mb-3" style={{ height: '36px' }}>
-                  <Image src="/images/pretrend.png" alt="Pretrend" width={36} height={36} style={{ objectFit: 'contain' }} />
-                </div>
-                <p className="text-muted-light small mb-3"><strong className="text-white">Pretrend:</strong> Prediction marketplace for trends</p>
-                <span className="badge bg-secondary">Coming Soon</span>
-              </div>
-            </div>
-            <div className="col-md-6 col-lg-4">
-              <div className="card card-dark p-4 rounded-3 h-100">
-                <div className="mb-3" style={{ height: '36px' }}>
-                  <Image src="/images/appvinci-white.png" alt="AppVinci" width={36} height={36} style={{ objectFit: 'contain' }} />
-                </div>
-                <p className="text-muted-light small mb-3"><strong className="text-white">AppVinci:</strong> Multi-application hub for Vitruveo</p>
-                <span className="badge bg-secondary">Coming Soon</span>
+            <div className="col-lg-4">
+              <div className="d-flex flex-column gap-2">
+                {[
+                  ['Crash', 'Significant decline', '#ef4444'],
+                  ['Bear', 'Moderate decline', '#f97316'],
+                  ['Flat', 'Minimal change', '#a3a3a3'],
+                  ['Bull', 'Moderate growth', '#4ade80'],
+                  ['Moon', 'Significant growth', '#7bc47f'],
+                ].map(([name, desc, color]) => (
+                  <div key={name} className="card card-dark px-3 py-2 rounded-3 d-flex flex-row align-items-center gap-3" style={{ borderLeft: `3px solid ${color}` }}>
+                    <span className="fw-bold" style={{ color, minWidth: '60px' }}>{name}</span>
+                    <span className="text-muted-light small">{desc}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -288,7 +275,7 @@ export default function OverviewPage() {
       </section>
 
       {/* Infrastructure */}
-      <section className="section-dark py-5">
+      <section className="section-dark-2 py-5">
         <div className="container">
           <h2 className="text-white mb-4">Infrastructure</h2>
           <div className="row g-4">
@@ -323,7 +310,7 @@ export default function OverviewPage() {
       </section>
 
       {/* FAQ */}
-      <section className="section-dark-2 py-5">
+      <section className="section-dark py-5">
         <div className="container">
           <h2 className="text-white mb-4">Frequently Asked Questions</h2>
           <div className="row g-4">

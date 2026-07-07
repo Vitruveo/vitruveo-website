@@ -31,18 +31,6 @@ const HOST_DEMOS = [
     comingSoon: false,
   },
   {
-    slug: 'idea-scout',
-    title: 'AI Idea Scout',
-    description: 'Submit a business plan leveraging HOST. Our AI evaluates your concept and awards VTRU based on viability.',
-    icon: (
-      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-      </svg>
-    ),
-    color: '#fbbf24',
-    comingSoon: true,
-  },
-  {
     slug: 'ntfy',
     title: 'Ntfy Alerts',
     description: 'Send push notifications to any device directly from your smart contract function.',
@@ -74,6 +62,28 @@ export default function HostLandingPage() {
   return (
     <section className="section-dark py-5">
       <div className="container py-4">
+        {/* HOST Feature Callout */}
+        <div className="card p-4 p-lg-5 rounded-4 mb-5" style={{ background: 'linear-gradient(135deg, rgba(161, 255, 117, 0.1) 0%, rgba(74, 222, 128, 0.05) 100%)', border: '1px solid rgba(161, 255, 117, 0.3)' }}>
+          <div className="row align-items-center g-4">
+            <div className="col-lg-8">
+              <h3 className="text-white mb-3">HOST — Trigger AI Agents from Smart Contracts</h3>
+              <p className="text-muted-light mb-0">
+                HTTP Outbound Service Trigger enables smart contracts to invoke AI agents and agentic
+                workflows during transaction execution. On-chain events become autonomous decisions.
+                The deep-dive primer covers the Chain of Trust security model and workflow lifecycle.
+              </p>
+            </div>
+            <div className="col-lg-4 text-lg-end">
+              <Link href="/host-primer" className="btn btn-host-primer btn-lg">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="me-2">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                HOST Primer
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <div className="text-center mb-5">
           <h1 className="text-white mb-3">HOST Interactive Demos</h1>
           <p className="text-muted-light lead mx-auto" style={{ maxWidth: '700px' }}>
@@ -86,7 +96,7 @@ export default function HostLandingPage() {
 
         <div className="row g-4 justify-content-center">
           {HOST_DEMOS.map((demo) => (
-            <div key={demo.slug} className="col-sm-6 col-lg-4">
+            <div key={demo.slug} className="col-md-6">
               {demo.comingSoon ? (
                 <div className="demo-card demo-card-disabled">
                   <h4 className="demo-card-title">{demo.title}</h4>

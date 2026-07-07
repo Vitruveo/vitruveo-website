@@ -46,7 +46,7 @@ export default function DevelopersPage() {
   return (
     <>
       {/* Hero with Video */}
-      <section className="page-hero d-flex align-items-center" style={{ marginTop: '-72px' }}>
+      <section className="page-hero d-flex align-items-center" style={{ marginTop: '-108px' }}>
         <video autoPlay muted loop playsInline className="video-bg">
           <source src="/videos/developers.mp4" type="video/mp4" />
         </video>

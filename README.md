@@ -50,7 +50,7 @@ vitruveo/
 ### Site Pages (Complete)
 - **Home** (`/`) - Hero with video, feature highlights, ecosystem preview
 - **About** (`/about`) - Detailed explanation of Vitruveo's technology
-- **Ecosystem** (`/ecosystem`) - Featured apps (Xibit, Yieldable, Pretrend, AppVinci) and infrastructure
+- **Ecosystem** (`/ecosystem`) - Featured app (Pretrend) and infrastructure
 - **Developers** (`/developers`) - PSC overview, MCP documentation, quick start guide
 - **PSC Detail Pages** (`/developers/psc/[slug]`) - Individual pages for each of 12 PSCs
 - **HOST Primer** (`/host-primer`) - Deep-dive documentation for HOST protocol

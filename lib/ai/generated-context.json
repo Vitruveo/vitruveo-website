@@ -1,10 +1,15 @@
 {
-  "generatedAt": "2026-01-29T00:39:14.767Z",
+  "generatedAt": "2026-07-07T18:35:13.744Z",
   "pages": [
     {
       "path": "/",
       "title": "Vitruveo - Webhooks for Web3",
       "description": "Smart contracts have always been silent. Vitruveo gives them a voice. The first EVM chain where contracts speak HTTP."
+    },
+    {
+      "path": "/about",
+      "title": "About",
+      "description": "Webhooks for Web3. Smart contracts have always been silent—Vitruveo gives them a voice. The first EVM chain where contracts speak HTTP."
     },
     {
       "path": "/developers/psc/batch-balance",
@@ -72,19 +77,39 @@
       "description": "Explore real-world applications of HOST Protocol. See how smart contracts control physical infrastructure, trigger AI agents, and automate business processes."
     },
     {
+      "path": "/host/examples/access-control",
+      "title": "Access Control: NFT-Gated Spaces - HOST Example",
+      "description": "How HOST enables physical door locks controlled by NFT ownership. Hold the token, open the door."
+    },
+    {
+      "path": "/host/examples/auto-lien",
+      "title": "AutoLien: Self-Filing Debt - HOST Example",
+      "description": "How HOST enables automatic UCC lien filings when DeFi loan payments are missed. On-chain debt becomes legally enforceable."
+    },
+    {
+      "path": "/host/examples/credit-bridge",
+      "title": "Credit Bridge: DeFi Builds Credit - HOST Example",
+      "description": "How HOST enables on-chain loan performance to build traditional credit scores. Your DeFi history becomes your credit score."
+    },
+    {
+      "path": "/host/examples/smart-escrow",
+      "title": "SmartEscrow: Atomic Closings - HOST Example",
+      "description": "How HOST enables atomic real estate closings. When funds hit escrow, documents release and title records simultaneously."
+    },
+    {
       "path": "/host/examples/smartlease",
       "title": "SmartLease: Self-Enforcing Assets - HOST Example",
       "description": "How HOST enables pay-as-you-go industrial machinery financing. Smart contracts that control physical assets."
     },
     {
+      "path": "/host/examples/supply-chain",
+      "title": "Supply Chain: Authenticated IoT Data - HOST Example",
+      "description": "How HOST enables tamper-proof supply chain tracking with IoT sensors and blockchain authentication."
+    },
+    {
       "path": "/host/request",
       "title": "HOST Request Generator",
       "description": "Generate and encrypt HOST requests to trigger AI agents and webhooks from smart contracts."
-    },
-    {
-      "path": "/overview",
-      "title": "Overview",
-      "description": "Webhooks for Web3. Smart contracts have always been silent—Vitruveo gives them a voice. The first EVM chain where contracts speak HTTP."
     }
   ],
   "pscs": [],

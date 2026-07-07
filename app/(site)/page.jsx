@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section with Video */}
-      <section className="hero-video d-flex align-items-center" style={{ marginTop: '-72px', paddingTop: '72px' }}>
+      <section className="hero-video d-flex align-items-center" style={{ marginTop: '-108px', paddingTop: '108px' }}>
         <HeroVideo />
         <div className="overlay"></div>
         <div className="container py-4">
@@ -34,7 +34,7 @@ export default function HomePage() {
                   </svg>
                   Start Building
                 </Link>
-                <Link href="/overview" className="btn btn-host-primer">
+                <Link href="/about" className="btn btn-host-primer">
                   <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="me-2">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
                   </svg>

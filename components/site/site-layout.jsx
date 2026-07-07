@@ -7,7 +7,7 @@ export function SiteLayout({ children }) {
   return (
     <>
       <SiteHeader />
-      <main style={{ paddingTop: '72px' }}>{children}</main>
+      <main style={{ paddingTop: '108px' }}>{children}</main>
       <SiteFooter />
     </>
   );
