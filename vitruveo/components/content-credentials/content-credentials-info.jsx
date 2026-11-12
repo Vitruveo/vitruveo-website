@@ -68,6 +68,17 @@ export function ContentCredentialsInfo() {
           target. The admin can hand control to another address with <code>setAdmin()</code>.
           Fingerprints are the SHA-256 of the DER certificate.
         </p>
+        <p className="text-muted-light">
+          On mainnet the admin is the 2-of-2 multisig{' '}
+          <code>0x71db0c3Df067C0f0b4a81119b1D239BdCa7c94ca</code>, and the trust list holds one anchor:
+          the Vitruveo Content Credentials Root CA (fingerprint{' '}
+          <code className="text-break">0x66e2bfd431681a9a42d5f8a4a06e7656006bc383db81b7f7d435e49a38c5ab49</code>).
+          Manifests signed with the Vitruveo signer certificate (ES256, issued by that root) pass{' '}
+          <code>check()</code> and <code>verify()</code>. Manifests signed with any other certificate,
+          including c2patool&apos;s built-in test certificate, revert with &quot;signer not trusted&quot;.
+          The root and signer certificates are published in the protocol repository under{' '}
+          <a href="https://github.com/Vitruveo/vitruveo-protocol/tree/Latest/contracts/c2pa/certs" target="_blank" rel="noopener noreferrer" className="text-vtru-green">contracts/c2pa/certs</a>.
+        </p>
       </section>
 
       <section className="mb-5">

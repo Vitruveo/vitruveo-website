@@ -283,7 +283,9 @@ export default function HostPrimerPage() {
                     <h6 className="text-vtru-green mb-2">Action</h6>
                     <p className="text-muted-light small mb-0">
                       The User calls <code className="text-vtru-green">authorizeContract(validatorNodeAddress, contractAddress, true)</code>
-                      to whitelist their contract.
+                      to whitelist their contract. The address must be a deployed contract (it must have code);
+                      plain wallet addresses are rejected. When a Validator removes a User, every contract that User
+                      whitelisted is removed with them.
                     </p>
                   </div>
                 </div>
@@ -330,6 +332,7 @@ export default function HostPrimerPage() {
                     </div>
                     <ul className="text-muted-light small mb-0">
                       <li className="mb-2"><strong className="text-white">Validation:</strong> The Registry checks the Chain of Trust—Is this contract registered by a User? Is that User approved by the target Validator?</li>
+                      <li className="mb-2"><strong className="text-white">Caller:</strong> <code className="text-vtru-green">msg.sender</code> must be a deployed contract, so <code className="text-vtru-green">addRequest</code> cannot be called from a constructor. Register requests in a separate call after deployment.</li>
                       <li><strong className="text-white">Output:</strong> If valid, returns a unique <code className="text-vtru-green">uint256 requestID</code>.</li>
                     </ul>
                   </div>

@@ -166,8 +166,9 @@ contract CardGame {
             <div className="alert alert-danger">{error}</div>
           )}
 
-          {txHash && (
+          {(txHash || txDetails) && (
             <div className="tx-info mb-4">
+              {txHash ? (
               <div className="tx-hash">
                 <span className="label">Transaction:</span>
                 <a
@@ -182,10 +183,15 @@ contract CardGame {
                   </svg>
                 </a>
               </div>
+              ) : (
+              <div className="tx-hash">
+                <span className="label">Read-only call (eth_call) on mainnet. Nothing was written on-chain.</span>
+              </div>
+              )}
               {txDetails && (
                 <div className="tx-details">
                   <span>Block: {txDetails.blockNumber}</span>
-                  <span>Gas: {Number(txDetails.gasUsed).toLocaleString()}</span>
+                  <span>{txHash ? 'Gas' : 'Gas (estimate)'}: {Number(txDetails.gasUsed).toLocaleString()}</span>
                 </div>
               )}
             </div>

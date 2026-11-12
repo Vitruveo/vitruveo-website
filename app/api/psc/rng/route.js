@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createWalletClient, createPublicClient, http, getAddress } from 'viem';
-import { privateKeyToAccount } from 'viem/accounts';
+import { createPublicClient, http, getAddress } from 'viem';
+import { randomBytes } from 'node:crypto';
 
 const RNG_ADDRESS = getAddress('0x00000000000000000000000000000000000000FF');
 const RPC_URL = 'https://rpc.vitruveo.ai';
@@ -31,14 +31,6 @@ function decodeUint256Array(hexResult) {
 
 export async function POST(request) {
   try {
-    const privateKey = process.env.PSC_DEMO_PRIVATE_KEY;
-
-    if (!privateKey) {
-      return NextResponse.json(
-        { error: 'PSC_DEMO_PRIVATE_KEY not configured' },
-        { status: 500 }
-      );
-    }
 
     // Parse count from request body (default 1)
     let count = 1;
@@ -54,53 +46,21 @@ export async function POST(request) {
     // Input is single byte for count
     const data = '0x' + count.toString(16).padStart(2, '0');
 
-    const account = privateKeyToAccount(privateKey);
-
+    // Read-only eth_call against the latest block. On the current release the
+    // precompile emits no log, so a transaction's output cannot be recovered
+    // afterwards; a call returns exactly what was computed. A random caller
+    // address (part of the seed) gives a fresh result on every request.
     const publicClient = createPublicClient({
       chain: vitruveoChain,
       transport: http(RPC_URL)
     });
+    const caller = getAddress('0x' + randomBytes(20).toString('hex'));
+    const block = await publicClient.getBlockNumber();
 
-    const walletClient = createWalletClient({
-      account,
-      chain: vitruveoChain,
-      transport: http(RPC_URL)
-    });
-
-    // Get current nonce
-    const nonce = await publicClient.getTransactionCount({ address: account.address });
-
-    // Estimate gas
-    const gasEstimate = await publicClient.estimateGas({
-      account: account.address,
-      to: RNG_ADDRESS,
-      data
-    });
-
-    // Send transaction
-    const hash = await walletClient.sendTransaction({
-      to: RNG_ADDRESS,
-      data,
-      gas: gasEstimate + 10000n,
-      nonce
-    });
-
-    // Wait for receipt
-    const receipt = await publicClient.waitForTransactionReceipt({ hash });
-
-    if (receipt.status !== 'success') {
-      return NextResponse.json(
-        { error: 'Transaction failed' },
-        { status: 500 }
-      );
-    }
-
-    // Now call to get the result (the tx advanced the nonce)
-    const result = await publicClient.call({
-      account: account.address,
-      to: RNG_ADDRESS,
-      data
-    });
+    const [result, gasEstimate] = await Promise.all([
+      publicClient.call({ account: caller, to: RNG_ADDRESS, data: data, blockNumber: block }),
+      publicClient.estimateGas({ account: caller, to: RNG_ADDRESS, data: data, blockNumber: block })
+    ]);
 
     if (!result.data || result.data === '0x') {
       return NextResponse.json(
@@ -113,11 +73,11 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      txHash: hash,
+      simulated: true,
       values: randomValues,
       count,
-      gasUsed: receipt.gasUsed.toString(),
-      blockNumber: receipt.blockNumber.toString()
+      gasUsed: gasEstimate.toString(),
+      blockNumber: block.toString()
     });
 
   } catch (error) {
