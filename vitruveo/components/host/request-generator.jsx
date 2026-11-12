@@ -57,7 +57,7 @@ function KvRow({ id, keyVal, valVal, encrypt, onKeyChange, onValChange, onEncryp
       <div className="col-md-2 text-center">
         <div className="form-check form-switch d-inline-block">
           <input className="form-check-input" type="checkbox" checked={encrypt} onChange={(e) => onEncryptChange(id, e.target.checked)} />
-          <label className="form-check-label small text-muted">Encrypt</label>
+          <label className="form-check-label small text-muted-light">Encrypt</label>
         </div>
       </div>
       <div className="col-md-1 text-end">
@@ -77,7 +77,7 @@ function ValueRow({ index, valVal, encrypt, onValChange, onEncryptChange }) {
       <div className="col-md-2 text-center">
         <div className="form-check form-switch d-inline-block">
           <input className="form-check-input" type="checkbox" checked={encrypt} onChange={(e) => onEncryptChange(index - 1, e.target.checked)} />
-          <label className="form-check-label small text-muted">Encrypt</label>
+          <label className="form-check-label small text-muted-light">Encrypt</label>
         </div>
       </div>
       <div className="col-md-1"></div>
@@ -359,7 +359,7 @@ export function HostRequestGenerator() {
                   <>
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <span className="val-count-badge">{headerTemplateValues.length} value{headerTemplateValues.length !== 1 ? 's' : ''} required</span>
-                      <button className="btn btn-link btn-sm text-muted p-0" onClick={() => setHeaderShowSource(!headerShowSource)}>
+                      <button className="btn btn-link btn-sm text-muted-light p-0" onClick={() => setHeaderShowSource(!headerShowSource)}>
                         {headerShowSource ? 'Hide' : 'Show'} Source
                       </button>
                     </div>
@@ -432,7 +432,7 @@ export function HostRequestGenerator() {
                   <>
                     <div className="d-flex justify-content-between align-items-center mb-2">
                       <span className="val-count-badge">{bodyTemplateValues.length} value{bodyTemplateValues.length !== 1 ? 's' : ''} required</span>
-                      <button className="btn btn-link btn-sm text-muted p-0" onClick={() => setBodyShowSource(!bodyShowSource)}>
+                      <button className="btn btn-link btn-sm text-muted-light p-0" onClick={() => setBodyShowSource(!bodyShowSource)}>
                         {bodyShowSource ? 'Hide' : 'Show'} Source
                       </button>
                     </div>
@@ -477,7 +477,7 @@ export function HostRequestGenerator() {
                   {isSending ? 'Sending...' : 'Send to Blockchain'}
                 </button>
                 {!isConnected && (
-                  <p className="text-muted small mt-2">Connect your wallet using the button in the navbar to send.</p>
+                  <p className="text-muted-light small mt-2">Connect your wallet using the button in the navbar to send.</p>
                 )}
               </div>
             </>
