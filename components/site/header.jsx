@@ -4,12 +4,30 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 const RPC_URL = 'https://rpc.vitruveo.ai';
+const VITRUVEO_CHAIN = {
+  chainId: '0x5d2',
+  chainName: 'Vitruveo',
+  nativeCurrency: { name: 'VTRU', symbol: 'VTRU', decimals: 18 },
+  rpcUrls: [RPC_URL],
+  blockExplorerUrls: ['https://explorer.vitruveo.ai'],
+};
+
+function getMetaMask() {
+  if (typeof window === 'undefined' || !window.ethereum) return null;
+  const { ethereum } = window;
+  if (Array.isArray(ethereum.providers)) {
+    return ethereum.providers.find((p) => p.isMetaMask) || ethereum.providers[0];
+  }
+  return ethereum;
+}
+
 const DEX_URL = 'https://pancakeswap.finance/swap?inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=0x55d398326f99059fF775485246999027B3197955';
 
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [walletStatus, setWalletStatus] = useState('idle');
 
   useEffect(() => {
     setMounted(true);
@@ -23,6 +41,35 @@ export function SiteHeader() {
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
+
+  const addToMetaMask = async () => {
+    const provider = getMetaMask();
+    if (!provider) {
+      window.open('https://metamask.io/download/', '_blank', 'noopener,noreferrer');
+      return;
+    }
+    setWalletStatus('pending');
+    try {
+      await provider.request({ method: 'eth_requestAccounts' });
+      try {
+        await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: VITRUVEO_CHAIN.chainId }] });
+      } catch (err) {
+        if (err?.code !== 4902 && err?.data?.originalError?.code !== 4902) throw err;
+        await provider.request({ method: 'wallet_addEthereumChain', params: [VITRUVEO_CHAIN] });
+      }
+      setWalletStatus('done');
+    } catch {
+      setWalletStatus('error');
+    }
+    setTimeout(() => setWalletStatus('idle'), 2500);
+  };
+
+  const walletLabel = {
+    idle: 'Connect MetaMask',
+    pending: 'Check MetaMask…',
+    done: 'Connected to Vitruveo',
+    error: 'Not connected',
+  }[walletStatus];
 
   return (
     <>
@@ -107,6 +154,22 @@ export function SiteHeader() {
         <div className="network-bar-item">
           <span className="network-bar-label">DEX</span>
           <a href={DEX_URL} target="_blank" rel="noopener noreferrer" className="network-bar-value">PancakeSwap</a>
+        </div>
+        <div className="network-bar-item">
+          <button
+            type="button"
+            className={`network-bar-wallet ${walletStatus}`}
+            onClick={addToMetaMask}
+            disabled={walletStatus === 'pending'}
+            title="Add the Vitruveo network to MetaMask and switch to it"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 7H5a2 2 0 0 1 0-4h13v4" />
+              <path d="M3 5v14a2 2 0 0 0 2 2h15V7" />
+              <path d="M16 14h.01" />
+            </svg>
+            {walletLabel}
+          </button>
         </div>
       </div>
     </div>

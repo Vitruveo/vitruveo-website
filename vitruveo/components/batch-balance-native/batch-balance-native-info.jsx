@@ -38,7 +38,10 @@ export function BatchBalanceNativeInfo() {
       <section className="mb-5">
         <h3 className="text-vtru-green mb-3">Interface</h3>
         <div className="code-block"><pre>{`Input:  owner(20) | includeNative(1) | token1(20) | token2(20) | ...
-Output: [nativeBalance(32)] | balance1(32) | balance2(32) | ...`}</pre></div>
+Output: uint256[] (ABI-encoded: offset | length | [nativeBalance] | balance1 | ...)
+
+// includeNative = 0x01 to include the native balance
+// Native only (no tokens): output is the raw 32-byte balance, not an array`}</pre></div>
       </section>
     </div>
   );

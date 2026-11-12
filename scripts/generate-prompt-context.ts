@@ -114,17 +114,26 @@ function extractPSCList(): PSCInfo[] {
 
   const pscs: PSCInfo[] = [];
 
-  // Match each PSC object
-  const pscRegex = /\{\s*name:\s*['"]([^'"]+)['"],\s*slug:\s*['"]([^'"]+)['"],\s*address:\s*PSC_ADDRESSES\.(\w+),\s*gas:\s*['"]([^'"]+)['"],\s*category:\s*['"]([^'"]+)['"],\s*description:\s*['"]([^'"]+)['"]\s*\}/g;
+  // Match each PSC object, then read its fields independently of order
+  const objectRegex = /\{([^{}]*)\}/g;
+  const field = (body: string, key: string) => {
+    const m = body.match(new RegExp(`${key}:\\s*['"]([^'"]+)['"]`));
+    return m ? m[1] : '';
+  };
 
   let match;
-  while ((match = pscRegex.exec(pscListMatch[1])) !== null) {
+  while ((match = objectRegex.exec(pscListMatch[1])) !== null) {
+    const body = match[1];
+    const addressMatch = body.match(/address:\s*PSC_ADDRESSES\.(\w+)/);
+    const name = field(body, 'name');
+    const slug = field(body, 'slug');
+    if (!name || !slug || !addressMatch) continue;
     pscs.push({
-      name: match[1],
-      slug: match[2],
-      address: match[3], // We'll resolve this later
-      description: match[6],
-      gas: match[4],
+      name,
+      slug,
+      address: addressMatch[1], // We'll resolve this later
+      description: field(body, 'description'),
+      gas: field(body, 'gas'),
     });
   }
 

@@ -18,19 +18,18 @@ export function RngInfo() {
         <ul className="text-muted-light mb-3">
           <li className="mb-2"><strong className="text-white">ParentHash:</strong> Previous block's hash (high entropy)</li>
           <li className="mb-2"><strong className="text-white">ChainID:</strong> Network identifier</li>
-          <li className="mb-2"><strong className="text-white">BlockNumber:</strong> Current block number</li>
+          <li className="mb-2"><strong className="text-white">Origin + nonce:</strong> Transaction sender and its account nonce</li>
           <li className="mb-2"><strong className="text-white">Timestamp:</strong> Block timestamp</li>
         </ul>
-        <p className="text-muted-light">Plus optional caller-provided <strong className="text-white">salt</strong> for additional entropy.</p>
+        <p className="text-muted-light">Every call in the same transaction gets the same seed; request several values with one call instead.</p>
       </section>
 
       <section className="mb-5">
         <h3 className="text-vtru-green mb-3">Interface</h3>
-        <div className="code-block"><pre>{`Input:  bytes (optional salt)
-Output: bytes32 (256-bit random value)
+        <div className="code-block"><pre>{`Input:  count(1)  (1-255; empty input = 1)
+Output: uint256[] (ABI-encoded, count random words)
 
-// Different salt = different outputs in same block
-// Same salt in different blocks = different outputs`}</pre></div>
+// Word i = keccak256(seed | i)`}</pre></div>
       </section>
 
       <section className="mb-5">

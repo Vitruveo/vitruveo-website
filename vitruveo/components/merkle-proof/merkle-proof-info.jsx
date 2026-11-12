@@ -14,7 +14,7 @@ export function MerkleProofInfo() {
       <section className="mb-5">
         <h3 className="text-vtru-green mb-3">Interface</h3>
         <div className="code-block"><pre>{`Input:  root(32) | leaf(32) | proof[0](32) | proof[1](32) | ...
-Output: bool (1 = valid proof)`}</pre></div>
+Output: uint256 1 (32 bytes) if valid; empty if invalid or malformed`}</pre></div>
       </section>
     </div>
   );

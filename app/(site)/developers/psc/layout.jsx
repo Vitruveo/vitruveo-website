@@ -9,12 +9,13 @@ const PSC_LIST = [
   { name: 'Shuffle', slug: 'shuffle' },
   { name: 'Compound Interest', slug: 'compound-interest' },
   { name: 'Passkey', slug: 'passkey' },
+  { name: 'Multisig', slug: 'multisig' },
   { name: 'Merkle Proof', slug: 'merkle-proof' },
-  { name: 'Inter-Blockchain Communication', slug: 'ibc' },
+  { name: 'Content Credentials', slug: 'content-credentials' },
+  { name: 'Protobuf', slug: 'protobuf' },
+  { name: 'File Storage', slug: 'file-storage' },
   { name: 'Batch Balance', slug: 'batch-balance' },
   { name: 'Batch Balance Native', slug: 'batch-balance-native' },
-  { name: 'Batch Send ERC20', slug: 'batch-send-erc20' },
-  { name: 'Batch Send Native', slug: 'batch-send-native' },
 ];
 
 export default function PSCLayout({ children }) {

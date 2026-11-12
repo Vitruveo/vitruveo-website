@@ -204,7 +204,7 @@ export function HostRequestGenerator() {
           if (!row.key) continue;
           let val = row.val;
           if (row.encrypt) val = await encryptValue(validator.pubKey, val);
-          obj[row.key] = `$${i + 1}`;
+          obj[row.key] = `$${vals.length + 1}`;
           vals.push(val);
         }
         return { input: JSON.stringify(obj), values: vals };

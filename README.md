@@ -4,8 +4,8 @@
 
 ### Primary Goals
 1. **Marketing Website** - Clean, modern site explaining Vitruveo's value proposition
-2. **AI Chat Assistant** - Gemini-powered chat that answers questions about Vitruveo, PSCs, and building on-chain
-3. **Developer Documentation** - Interactive documentation for all 12 Protocol Smart Contracts
+2. **AI Chat Assistant** - AI chat (Claude via Vercel AI Gateway) that answers questions about Vitruveo, PSCs, and building on-chain
+3. **Developer Documentation** - Interactive documentation for all 13 Protocol Smart Contracts
 4. **Vitruveo Starter Kit** - The `/vitruveo` folder is designed to be extracted as a standalone, dependency-free starter kit for developers
 
 ### The Vitruveo Folder (Starter Kit)
@@ -30,11 +30,12 @@ vitruveo/
     ├── compound-interest/
     ├── passkey/
     ├── merkle-proof/
-    ├── ibc/
+    ├── protobuf/
+    ├── multisig/
+    ├── file-storage/
+    ├── content-credentials/
     ├── batch-balance/
-    ├── batch-balance-native/
-    ├── batch-send-erc20/
-    └── batch-send-native/
+    └── batch-balance-native/
 ```
 
 **Each PSC component has:**
@@ -52,12 +53,12 @@ vitruveo/
 - **About** (`/about`) - Detailed explanation of Vitruveo's technology
 - **Ecosystem** (`/ecosystem`) - Featured app (Pretrend) and infrastructure
 - **Developers** (`/developers`) - PSC overview, MCP documentation, quick start guide
-- **PSC Detail Pages** (`/developers/psc/[slug]`) - Individual pages for each of 12 PSCs
+- **PSC Detail Pages** (`/developers/psc/[slug]`) - Individual pages for each of 13 PSCs
 - **HOST Primer** (`/host-primer`) - Deep-dive documentation for HOST protocol
-- **Chat** (`/chat`) - AI assistant powered by Gemini
+- **Chat** (`/chat`) - AI assistant (Claude Haiku via Vercel AI Gateway)
 
 ### AI Chat Features
-- Gemini model integration via Vercel AI SDK
+- Model access via Vercel AI Gateway and AI SDK
 - MCP (Model Context Protocol) server at `/mcp` with 17 blockchain tools
 - System prompt auto-generated from site content (`scripts/generate-prompt-context.ts`)
 - Chat history persisted to localStorage
@@ -115,7 +116,7 @@ pnpm build
 
 ### Environment Variables
 ```
-GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_key
+AI_GATEWAY_API_KEY=your_vercel_ai_gateway_key
 ```
 
 

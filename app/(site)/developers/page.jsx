@@ -18,12 +18,13 @@ const pscList = [
   { name: 'Shuffle', slug: 'shuffle', address: PSC_ADDRESSES.SHUFFLE, description: 'Cryptographic card deck shuffle', category: 'Randomness', color: '#f472b6' },
   { name: 'Compound Interest', slug: 'compound-interest', address: PSC_ADDRESSES.COMPOUND_INTEREST, description: 'High-precision DeFi calculations', category: 'DeFi', color: '#fbbf24' },
   { name: 'Passkey', slug: 'passkey', address: PSC_ADDRESSES.PASSKEY, description: 'WebAuthn P-256 verification', category: 'Auth', color: '#c084fc' },
+  { name: 'Multisig', slug: 'multisig', address: PSC_ADDRESSES.MULTISIG, description: 'Native wallets with EOA + passkey owners', category: 'Auth', color: '#c084fc' },
   { name: 'Merkle Proof', slug: 'merkle-proof', address: PSC_ADDRESSES.MERKLE_PROOF, description: 'Fast Merkle proof verification', category: 'Verification', color: '#34d399' },
-  { name: 'IBC', slug: 'ibc', address: PSC_ADDRESSES.IBC, description: 'Cosmos light client bridge', category: 'Interop', color: '#fb923c' },
+  { name: 'Content Credentials', slug: 'content-credentials', address: PSC_ADDRESSES.CONTENT_CREDENTIALS, description: 'On-chain C2PA provenance verification', category: 'Verification', color: '#34d399' },
+  { name: 'Protobuf', slug: 'protobuf', address: PSC_ADDRESSES.PROTOBUF, description: 'Protobuf codec + 1 gas/byte storage', category: 'Data', color: '#22d3ee' },
+  { name: 'File Storage', slug: 'file-storage', address: PSC_ADDRESSES.FILE_STORE, description: 'On-chain files up to 10 MB, served over HTTP', category: 'Data', color: '#22d3ee' },
   { name: 'Batch Balance', slug: 'batch-balance', address: PSC_ADDRESSES.BATCH_BALANCE, description: 'Query multiple ERC20 balances', category: 'Batching', color: '#94a3b8' },
   { name: 'Batch Balance Native', slug: 'batch-balance-native', address: PSC_ADDRESSES.BATCH_BALANCE_NATIVE, description: 'Query native + ERC20 balances', category: 'Batching', color: '#94a3b8' },
-  { name: 'Batch Send ERC20', slug: 'batch-send-erc20', address: PSC_ADDRESSES.BATCH_SEND_ERC20, description: 'Multi-recipient token transfer', category: 'Batching', color: '#94a3b8' },
-  { name: 'Batch Send Native', slug: 'batch-send-native', address: PSC_ADDRESSES.BATCH_SEND_NATIVE, description: 'Multi-recipient VTRU transfer', category: 'Batching', color: '#94a3b8' },
 ];
 
 // Icons for each PSC
@@ -35,11 +36,12 @@ const pscIcons = {
   'compound-interest': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
   passkey: <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" /></svg>,
   'merkle-proof': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
-  ibc: <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
+  multisig: <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
+  'content-credentials': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>,
+  protobuf: <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
+  'file-storage': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>,
   'batch-balance': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
   'batch-balance-native': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
-  'batch-send-erc20': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
-  'batch-send-native': <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
 };
 
 export default function DevelopersPage() {
@@ -56,7 +58,7 @@ export default function DevelopersPage() {
             Familiar EVM. <span className="text-vtru-green">Unfamiliar Power.</span>
           </h1>
           <p className="lead text-white-50 mb-0" style={{ maxWidth: '600px' }}>
-            Your Solidity works. Your tools work. Plus 12 protocol-level capabilities
+            Your Solidity works. Your tools work. Plus 13 protocol-level capabilities
             you can't get anywhere else.
           </p>
         </div>
@@ -93,7 +95,7 @@ export default function DevelopersPage() {
         <div className="container">
           <h2 className="text-white mb-3">Protocol Smart Contracts</h2>
           <p className="text-muted-light mb-4">
-            Every EVM has precompiles (ecrecover, sha256, etc.). Vitruveo adds 12 more
+            Every EVM has precompiles (ecrecover, sha256, etc.). Vitruveo adds 13 more
             that give contracts capabilities no standard EVM offers.
           </p>
 
@@ -185,16 +187,26 @@ const result = await provider.call({
                 <h5 className="text-vtru-green mb-3">Math & Verification</h5>
                 <ul className="list-unstyled mb-0">
                   <li><Link href="/developers/psc/compound-interest" className="text-muted-light">CompoundInterest</Link></li>
-                  <li><Link href="/developers/psc/passkey" className="text-muted-light">Passkey</Link></li>
                   <li><Link href="/developers/psc/merkle-proof" className="text-muted-light">MerkleProof</Link></li>
+                  <li><Link href="/developers/psc/content-credentials" className="text-muted-light">Content Credentials (C2PA)</Link></li>
                 </ul>
               </div>
             </div>
             <div className="col-md-4">
               <div className="card card-dark p-4 rounded-3 h-100">
-                <h5 className="text-vtru-green mb-3">Interoperability</h5>
+                <h5 className="text-vtru-green mb-3">Auth & Wallets</h5>
                 <ul className="list-unstyled mb-0">
-                  <li><Link href="/developers/psc/ibc" className="text-muted-light">Inter-Blockchain Communication</Link></li>
+                  <li><Link href="/developers/psc/passkey" className="text-muted-light">Passkey</Link></li>
+                  <li><Link href="/developers/psc/multisig" className="text-muted-light">Multisig</Link></li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card card-dark p-4 rounded-3 h-100">
+                <h5 className="text-vtru-green mb-3">Data & Storage</h5>
+                <ul className="list-unstyled mb-0">
+                  <li><Link href="/developers/psc/protobuf" className="text-muted-light">Protobuf</Link></li>
+                  <li><Link href="/developers/psc/file-storage" className="text-muted-light">File Storage</Link></li>
                 </ul>
               </div>
             </div>
@@ -204,8 +216,6 @@ const result = await provider.call({
                 <ul className="list-unstyled mb-0">
                   <li><Link href="/developers/psc/batch-balance" className="text-muted-light">BatchBalance</Link></li>
                   <li><Link href="/developers/psc/batch-balance-native" className="text-muted-light">BatchBalanceNative</Link></li>
-                  <li><Link href="/developers/psc/batch-send-erc20" className="text-muted-light">BatchSendERC20</Link></li>
-                  <li><Link href="/developers/psc/batch-send-native" className="text-muted-light">BatchSendNative</Link></li>
                 </ul>
               </div>
             </div>

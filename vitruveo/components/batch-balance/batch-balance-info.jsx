@@ -38,7 +38,9 @@ export function BatchBalanceInfo() {
       <section className="mb-5">
         <h3 className="text-vtru-green mb-3">Interface</h3>
         <div className="code-block"><pre>{`Input:  owner(20) | token1(20) | token2(20) | ...
-Output: balance1(32) | balance2(32) | ...`}</pre></div>
+Output: uint256[] (ABI-encoded: offset | length | balance1 | balance2 | ...)
+
+// Reverts on malformed input; a token whose balanceOf fails reads as 0`}</pre></div>
       </section>
     </div>
   );

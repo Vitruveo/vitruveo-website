@@ -100,7 +100,7 @@ contract CardGame {
         view
         returns (bytes[] memory hands)
     {
-        bytes memory deck = getShuffledDeck(abi.encodePacked(block.prevrandao));
+        bytes memory deck = getShuffledDeck(abi.encodePacked(msg.sender)); // no PREVRANDAO on Vitruveo
         hands = new bytes[](numPlayers);
 
         for (uint8 p = 0; p < numPlayers; p++) {

@@ -41,12 +41,15 @@ headerValues[0] = "application/json";
 // Encrypted value - prefix with |
 headerValues[1] = "|04abc123...def456";  // Encrypted API key
 
-registry.addRequest(
+uint256 requestId = registry.addRequest(
+    validator,                                            // validator node address
     "https://api.example.com/webhook",
-    '{"Content-Type":"$1","Authorization":"Bearer $2"}',
+    '{"Content-Type":"$1","Authorization":"Bearer $2"}',  // header template
     headerValues,
-    ...
-);`;
+    '{"event":"$1"}',                                     // body template
+    bodyValues
+);
+(bool ok, ) = HOST.call{gas: 130000}(abi.encode(requestId));`;
 
 export function HostInfo() {
   return (
@@ -88,16 +91,18 @@ export function HostInfo() {
       <section className="mb-5">
         <h3 className="text-vtru-green mb-3">Interface</h3>
         <div className="code-block">
-          <pre>{`// Register a request with the Registry
+          <pre>{`// Register a request with the Registry (caller must be whitelisted for the validator)
 addRequest(
-    string url,           // Target webhook URL
-    string payload,       // JSON body
-    string headers,       // HTTP headers
-    address[] nodes       // Validator nodes to execute
+    address validator,        // Validator node to execute
+    string url,               // Target webhook URL
+    string headerInput,       // Header JSON template ("$1"...) or registered template name
+    string[] headerValues,    // Values for $1, $2, ... ("|" prefix = encrypted)
+    string bodyInput,         // Body template or registered template name
+    string[] bodyValues
 ) → uint256 requestId
 
-// Execute via precompile
-(HOST_PRECOMPILE).staticcall(requestId)`}</pre>
+// Execute via precompile (needs at least 125,000 gas)
+(HOST_PRECOMPILE).staticcall(abi.encode(requestId))`}</pre>
         </div>
       </section>
 

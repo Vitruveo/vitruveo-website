@@ -14,7 +14,9 @@ export function PasskeyInfo() {
       <section className="mb-5">
         <h3 className="text-vtru-green mb-3">Interface</h3>
         <div className="code-block"><pre>{`Input:  hash(32) | r(32) | s(32) | x(32) | y(32) = 160 bytes
-Output: bool (1 = valid, 0 = invalid)`}</pre></div>
+Output: uint256 (1 = valid, 0 = invalid)
+
+// s must be low-S (s <= n/2); high-S signatures return 0`}</pre></div>
       </section>
     </div>
   );

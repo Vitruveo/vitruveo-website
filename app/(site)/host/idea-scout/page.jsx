@@ -153,7 +153,8 @@ export default function AIIdeaScoutPage() {
         'Content-Type': 'application/json',
       },
       bodyTemplate: bodyTemplate,
-      bodyValues: [address, email, content, plainText],
+      // JSON-escape free text: values are substituted into the JSON template as-is
+      bodyValues: [address, email, JSON.stringify(content).slice(1, -1), JSON.stringify(plainText).slice(1, -1)],
     });
 
     const txResult = await submit(payload);

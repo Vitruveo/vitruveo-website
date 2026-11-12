@@ -170,10 +170,10 @@ export default function HomePage() {
         <div className="container py-4">
           <div className="row align-items-center g-5">
             <div className="col-lg-5">
-              <h2 className="text-white mb-4">12 Built-In Capabilities</h2>
+              <h2 className="text-white mb-4">13 Built-In Capabilities</h2>
               <p className="lead text-muted-light mb-4">
-                Webhooks, passkeys, randomness, batching, Merkle proofs, trend analysis,
-                and more—built directly into the protocol.
+                Webhooks, passkeys, multisig wallets, on-chain file storage, content credentials,
+                randomness, trend analysis and more—built directly into the protocol.
               </p>
               <Link href="/developers/psc" className="btn btn-host-primer">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="me-2">
@@ -202,7 +202,7 @@ export default function HomePage() {
                 ))}
                 <div className="col-12">
                   <Link href="/developers/psc" className="text-vtru-green text-center d-block py-2">
-                    + 7 more...
+                    + 8 more...
                   </Link>
                 </div>
               </div>

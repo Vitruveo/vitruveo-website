@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T18:35:13.744Z",
+  "generatedAt": "2026-11-12T00:55:33.307Z",
   "pages": [
     {
       "path": "/",
@@ -22,24 +22,19 @@
       "description": "Query native VTRU plus ERC20 balances in one call."
     },
     {
-      "path": "/developers/psc/batch-send-erc20",
-      "title": "Batch Send ERC20 - Protocol Smart Contracts",
-      "description": "Send ERC20 tokens to multiple recipients in one transaction."
-    },
-    {
-      "path": "/developers/psc/batch-send-native",
-      "title": "Batch Send Native - Protocol Smart Contracts",
-      "description": "Send VTRU to multiple recipients in one transaction."
-    },
-    {
       "path": "/developers/psc/compound-interest",
       "title": "Compound Interest - Protocol Smart Contracts",
       "description": "High-precision compound interest calculation for DeFi."
     },
     {
-      "path": "/developers/psc/ibc",
-      "title": "Inter-Blockchain Communication - Protocol Smart Contracts",
-      "description": "Cosmos IBC light client for cross-chain state verification."
+      "path": "/developers/psc/content-credentials",
+      "title": "Content Credentials - Protocol Smart Contracts",
+      "description": "Verify C2PA Content Credentials on chain against a multisig-controlled trust list."
+    },
+    {
+      "path": "/developers/psc/file-storage",
+      "title": "File Storage - Protocol Smart Contracts",
+      "description": "Store files up to 10 MB on chain at 2 gas per calldata byte, served over HTTP at /file/<sha256>."
     },
     {
       "path": "/developers/psc/merkle-proof",
@@ -47,9 +42,19 @@
       "description": "Verify Merkle tree membership proofs efficiently."
     },
     {
+      "path": "/developers/psc/multisig",
+      "title": "Multisig - Protocol Smart Contracts",
+      "description": "Native multisig wallets with EOA and passkey owners and batched contract execution."
+    },
+    {
       "path": "/developers/psc/passkey",
       "title": "Passkey - Protocol Smart Contracts",
       "description": "WebAuthn / P-256 signature verification for passwordless authentication."
+    },
+    {
+      "path": "/developers/psc/protobuf",
+      "title": "Protobuf - Protocol Smart Contracts",
+      "description": "Protobuf wire codec and on-chain message storage at 1 gas per byte."
     },
     {
       "path": "/developers/psc/rng",
@@ -112,7 +117,99 @@
       "description": "Generate and encrypt HOST requests to trigger AI agents and webhooks from smart contracts."
     }
   ],
-  "pscs": [],
+  "pscs": [
+    {
+      "name": "HOST",
+      "slug": "host",
+      "address": "0x0000000000000000000000000000000000000099",
+      "description": "Trigger AI agents from contracts",
+      "gas": ""
+    },
+    {
+      "name": "Trend",
+      "slug": "trend",
+      "address": "0x00000000000000000000000000000000000000dc",
+      "description": "OLS regression + volatility analysis",
+      "gas": ""
+    },
+    {
+      "name": "RNG",
+      "slug": "rng",
+      "address": "0x00000000000000000000000000000000000000ff",
+      "description": "Protocol-level random numbers",
+      "gas": ""
+    },
+    {
+      "name": "Shuffle",
+      "slug": "shuffle",
+      "address": "0x00000000000000000000000000000000000000AB",
+      "description": "Cryptographic card deck shuffle",
+      "gas": ""
+    },
+    {
+      "name": "Compound Interest",
+      "slug": "compound-interest",
+      "address": "0x00000000000000000000000000000000000000cc",
+      "description": "High-precision DeFi calculations",
+      "gas": ""
+    },
+    {
+      "name": "Passkey",
+      "slug": "passkey",
+      "address": "0x00000000000000000000000000000000000000AA",
+      "description": "WebAuthn P-256 verification",
+      "gas": ""
+    },
+    {
+      "name": "Multisig",
+      "slug": "multisig",
+      "address": "0x00000000000000000000000000000000000000AC",
+      "description": "Native wallets with EOA + passkey owners",
+      "gas": ""
+    },
+    {
+      "name": "Merkle Proof",
+      "slug": "merkle-proof",
+      "address": "0x00000000000000000000000000000000000000dd",
+      "description": "Fast Merkle proof verification",
+      "gas": ""
+    },
+    {
+      "name": "Content Credentials",
+      "slug": "content-credentials",
+      "address": "0x00000000000000000000000000000000000000ca",
+      "description": "On-chain C2PA provenance verification",
+      "gas": ""
+    },
+    {
+      "name": "Protobuf",
+      "slug": "protobuf",
+      "address": "0x00000000000000000000000000000000000000B0",
+      "description": "Protobuf codec + 1 gas/byte storage",
+      "gas": ""
+    },
+    {
+      "name": "File Storage",
+      "slug": "file-storage",
+      "address": "0x00000000000000000000000000000000000000f1",
+      "description": "On-chain files up to 10 MB, served over HTTP",
+      "gas": ""
+    },
+    {
+      "name": "Batch Balance",
+      "slug": "batch-balance",
+      "address": "0x00000000000000000000000000000000000000bb",
+      "description": "Query multiple ERC20 balances",
+      "gas": ""
+    },
+    {
+      "name": "Batch Balance Native",
+      "slug": "batch-balance-native",
+      "address": "0x00000000000000000000000000000000000000Bc",
+      "description": "Query native + ERC20 balances",
+      "gas": ""
+    }
+  ],
   "mcpTools": [
     "get_core_contracts",
     "get_chain_info",

@@ -184,10 +184,10 @@ contract DeFiVault {
         uint256 depositAmount,
         uint256 annualRate,
         uint256 compoundingFrequency,
-        uint256 years
+        uint256 numYears
     ) public view returns (uint256) {
         uint256 periodicRate = annualRate / compoundingFrequency;
-        uint256 totalPeriods = compoundingFrequency * years;
+        uint256 totalPeriods = compoundingFrequency * numYears;
         return calculateCompoundInterest(depositAmount, periodicRate, totalPeriods);
     }
 }`;

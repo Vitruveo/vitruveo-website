@@ -16,9 +16,9 @@
     "How can I explore the ecosystem?",
     "What developer tools are available?",
     "What is the Shuffle precompile for?",
-    "How do batch operations work?",
+    "How does the native Multisig precompile work?",
     "What is the Trend precompile?",
-    "How does IBC integration work?",
+    "How do I store files on chain with File Storage?",
     "What is compound interest calculation?",
     "How do I verify Merkle proofs?"
   ]

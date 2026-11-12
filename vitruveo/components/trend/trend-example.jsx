@@ -39,8 +39,8 @@ function decodeTrendOutput(hex) {
   const rSquaredHex = data.slice(64, 128);
   const volatilityHex = data.slice(128, 192);
 
-  // slopePct and rSquared are scaled by 1e18
-  const slopePct = Number(BigInt('0x' + slopePctHex)) / 1e18;
+  // slopePct (signed int256) and rSquared are scaled by 1e18
+  const slopePct = Number(BigInt.asIntN(256, BigInt('0x' + slopePctHex))) / 1e18;
   const rSquared = Number(BigInt('0x' + rSquaredHex)) / 1e18;
 
   // Volatility = std_dev * input_scale(1e10) * cosmetic_scale(1e16) = std_dev * 1e26
@@ -251,10 +251,12 @@ const response = await fetch(RPC, {
 
 const { result } = await response.json();
 
-// Decode output: slopePct(32) | rSquared(32) | volatility(32)
-const slopePct = Number(BigInt('0x' + result.slice(2, 66))) / 1e18;
+// Decode output: slopePct(32, signed) | rSquared(32) | volatility(32)
+// slopePct: fitted change over the series, 1e18 = 100%
+const slopePct = Number(BigInt.asIntN(256, BigInt('0x' + result.slice(2, 66)))) / 1e16;
 const rSquared = Number(BigInt('0x' + result.slice(66, 130))) / 1e18;
-const volatility = Number(BigInt('0x' + result.slice(130, 194))) / 1e18;
+// volatility: sample std dev of the (1e18-scaled) values x 1e16
+const volatility = Number(BigInt('0x' + result.slice(130, 194))) / 1e34;
 
 console.log(\`Slope: \${slopePct.toFixed(4)}%\`);
 console.log(\`R²: \${rSquared.toFixed(4)}\`);
@@ -267,9 +269,9 @@ contract TrendAnalysis {
     address constant TREND_PSC = ${PSC_ADDRESSES.TREND};
 
     struct TrendResult {
-        int256 slopePct;    // Slope as percentage (scaled by 1e18)
+        int256 slopePct;    // Fitted change over the series (1e18 = 100%)
         uint256 rSquared;   // R² confidence (0-1, scaled by 1e18)
-        uint256 volatility; // Volatility measure (scaled by 1e18)
+        uint256 volatility; // Sample std dev of the values, x 1e16
     }
 
     /// @notice Analyze price trend from time series data
@@ -304,11 +306,9 @@ contract TrendAnalysis {
         (bool success, bytes memory result) = TREND_PSC.staticcall(payload);
         require(success && result.length == 96, "Trend call failed");
 
-        return TrendResult({
-            slopePct: int256(uint256(bytes32(result[0:32]))),
-            rSquared: uint256(bytes32(result[32:64])),
-            volatility: uint256(bytes32(result[64:96]))
-        });
+        (int256 slopePct, uint256 rSquared, uint256 volatility) =
+            abi.decode(result, (int256, uint256, uint256));
+        return TrendResult(slopePct, rSquared, volatility);
     }
 
     /// @notice Check if asset is trending up with confidence

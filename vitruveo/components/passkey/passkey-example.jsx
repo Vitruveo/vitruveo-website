@@ -330,13 +330,17 @@ export function PasskeyExample() {
 const RPC = '${NETWORK_CONFIG.rpc}';
 const PASSKEY_ADDRESS = '${PSC_ADDRESSES.PASSKEY}';
 
-// After WebAuthn authentication, you have:
+// After WebAuthn authentication, you have (64-char hex strings, no 0x):
 // - messageHash: SHA256(authenticatorData + SHA256(clientDataJSON))
 // - r, s: signature components (parsed from DER)
 // - x, y: public key coordinates
 
+// The PSC only accepts low-S signatures: if s > n/2, use n - s
+const N = 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551n;
+const sLow = BigInt('0x' + s) > N / 2n ? (N - BigInt('0x' + s)).toString(16).padStart(64, '0') : s;
+
 // Build 160-byte payload
-const payload = '0x' + messageHash + r + s + x + y;
+const payload = '0x' + messageHash + r + sLow + x + y;
 
 // Call the Passkey precompile
 const response = await fetch(RPC, {

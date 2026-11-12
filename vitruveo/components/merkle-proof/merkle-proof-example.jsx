@@ -178,7 +178,8 @@ const response = await fetch(RPC, {
 });
 
 const { result } = await response.json();
-const isValid = BigInt(result) === 1n;
+// Valid: 32-byte 1. Invalid: empty result (0x)
+const isValid = result !== '0x' && BigInt(result) === 1n;
 console.log(isValid ? 'Proof valid!' : 'Proof invalid');`;
 
   const soliditySnippet = `// SPDX-License-Identifier: MIT
@@ -211,7 +212,8 @@ contract Allowlist {
         (bool success, bytes memory result) = MERKLE_PSC.staticcall(input);
         require(success, "Merkle verification failed");
 
-        return abi.decode(result, (uint256)) == 1;
+        // Empty result = invalid proof
+        return result.length == 32 && abi.decode(result, (uint256)) == 1;
     }
 
     /// @notice Claim from allowlist with Merkle proof

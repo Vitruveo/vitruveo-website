@@ -316,11 +316,11 @@ export default function AboutPage() {
           <div className="row g-4">
             {[
               ['What is Vitruveo?', 'Webhooks for Web3. The first EVM chain where smart contracts speak HTTP. Your contracts call webhooks directly during transaction execution—no indexers, no polling, no middleware.'],
-              ['How is it different from Ethereum?', '100% EVM compatible—your Solidity works unchanged. The difference: HOST lets contracts talk back to Web2. Plus 11 other Protocol Smart Contracts for passkeys, randomness, and more.'],
+              ['How is it different from Ethereum?', '100% EVM compatible—your Solidity works unchanged. The difference: HOST lets contracts talk back to Web2. Plus 12 other Protocol Smart Contracts for passkeys, multisig wallets, file storage, randomness, and more.'],
               ['What are Protocol Smart Contracts?', 'Precompiled contracts built into Vitruveo\'s node software. They provide capabilities too expensive or impossible in pure Solidity—like outbound HTTP calls.'],
               ['What is HOST?', 'HTTP Outbound Service Trigger. Smart contracts that speak HTTP. Your contract sends data to your webhook during transaction. Signed by the validator. Provably authentic.'],
               ['Is it secure?', 'Every outbound call is signed by the validator. Your webhook can verify it came from the blockchain. Chain of custody, extended off-chain.'],
-              ['What\'s the gas cost?', '4 gwei base price with 5-second blocks. Fast enough for AI agent workflows. PSC operations range from 500 gas (RNG) to 200,000+ gas (IBC).'],
+              ['What\'s the gas cost?', '4 gwei base price with 5-second blocks. Fast enough for AI agent workflows. PSC calls range from 500 gas (RNG) to about 1.1M gas for a 512 KB File Storage upload chunk (2 gas per calldata byte).'],
             ].map(([question, answer]) => (
               <div key={question} className="col-md-6">
                 <div className="card card-dark p-4 rounded-3 h-100">

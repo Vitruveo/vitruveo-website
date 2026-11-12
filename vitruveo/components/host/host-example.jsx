@@ -6,54 +6,65 @@ import { HOST_REGISTRY_ADDRESS, PSC_ADDRESSES } from '../../lib/psc-constants';
 export function HostExample() {
   const [webhookUrl, setWebhookUrl] = useState('https://api.example.com/webhook');
   const [payload, setPayload] = useState('{"action":"fulfill","orderId":"123"}');
-  const [validatorAddress, setValidatorAddress] = useState('0x...');
+  const [validatorAddress, setValidatorAddress] = useState('0x54Db0a8A3078C16cB4Ca6E289a68c23Ef3b127d0');
   const [activeTab, setActiveTab] = useState('solidity');
 
   const solidityCode = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 interface IHostRegistry {
-    function createRequest(
+    function addRequest(
         address validator,
         string calldata url,
-        string calldata payload,
-        string calldata headers
+        string calldata headerInput,   // raw JSON template or registered template name
+        string[] calldata headerValues,
+        string calldata bodyInput,     // raw JSON template or registered template name
+        string[] calldata bodyValues
     ) external returns (uint256 requestId);
 }
 
+// This contract must be whitelisted for the validator (authorizeContract)
 contract MyContract {
-    IHostRegistry constant HOST = IHostRegistry(${HOST_REGISTRY_ADDRESS});
+    IHostRegistry constant REGISTRY = IHostRegistry(${HOST_REGISTRY_ADDRESS});
+    address constant HOST = ${PSC_ADDRESSES.HOST};
 
-    function triggerWebhook() external returns (uint256) {
-        return HOST.createRequest(
+    function triggerWebhook() external returns (uint256 requestId) {
+        string[] memory headerValues = new string[](1);
+        headerValues[0] = "application/json";
+
+        requestId = REGISTRY.addRequest(
             ${validatorAddress},
             "${webhookUrl}",
+            '{"Content-Type":"$1"}',
+            headerValues,
             '${payload}',
-            "Content-Type: application/json"
+            new string[](0)
         );
+
+        // Fire it: the HOST precompile needs at least 125,000 gas
+        (bool ok, ) = HOST.call{gas: 130000}(abi.encode(requestId));
+        require(ok, "HOST call failed");
     }
 }`;
 
-  const javascriptCode = `// Using ethers.js
-const hostRegistryABI = [
-  "function createRequest(address validator, string url, string payload, string headers) returns (uint256)"
-];
-
-const hostRegistry = new ethers.Contract(
-  "${HOST_REGISTRY_ADDRESS}",
-  hostRegistryABI,
+  const javascriptCode = `// Using ethers.js v6: call your whitelisted contract
+const myContract = new ethers.Contract(
+  "0xYourContract",
+  ["function triggerWebhook() returns (uint256)"],
   signer
 );
 
-const tx = await hostRegistry.createRequest(
-  "${validatorAddress}",
-  "${webhookUrl}",
-  '${payload}',
-  "Content-Type: application/json"
-);
-
+const tx = await myContract.triggerWebhook();
 const receipt = await tx.wait();
-console.log("Request ID:", receipt.events[0].args.requestId);`;
+
+// RequestAdded is emitted by the HOST Registry
+const registry = new ethers.Interface([
+  "event RequestAdded(uint256 indexed requestId, address indexed requester)"
+]);
+const log = receipt.logs.find(
+  (l) => l.address.toLowerCase() === "${HOST_REGISTRY_ADDRESS.toLowerCase()}"
+);
+console.log("Request ID:", registry.parseLog(log).args.requestId);`;
 
   return (
     <div className="mb-5">
@@ -124,10 +135,10 @@ console.log("Request ID:", receipt.events[0].args.requestId);`;
           <div className="card card-dark p-4 rounded-3 h-100">
             <h5 className="text-vtru-green mb-3">What Happens</h5>
             <ol className="text-muted-light small ps-3 mb-0">
-              <li className="mb-2">Your contract calls <code className="text-vtru-green">createRequest()</code> on the HOST Registry</li>
-              <li className="mb-2">The transaction includes validator address, URL, payload, and headers</li>
+              <li className="mb-2">Your contract calls <code className="text-vtru-green">addRequest()</code> on the HOST Registry, then calls the HOST precompile with the request ID</li>
+              <li className="mb-2">The request stores the validator address, URL, header and body templates, and their values</li>
               <li className="mb-2">During block execution, the selected validator fires an HTTP POST to your URL</li>
-              <li className="mb-2">Your webhook receives the request with <code className="text-vtru-green">X-Chain-Request-ID</code> header</li>
+              <li className="mb-2">Your webhook receives the request with <code className="text-vtru-green">X-HOST-Request-ID</code> header</li>
               <li className="mb-0">Process the request and respond (standard webhook flow)</li>
             </ol>
           </div>

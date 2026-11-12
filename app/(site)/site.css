@@ -141,6 +141,37 @@ a.network-bar-value:hover {
   color: var(--vtru-green);
 }
 
+.network-bar-wallet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid var(--vtru-green);
+  color: var(--vtru-green);
+  border-radius: 999px;
+  padding: 0.1rem 0.65rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.network-bar-wallet:hover:not(:disabled),
+.network-bar-wallet.done {
+  background: var(--vtru-green);
+  color: #000;
+}
+
+.network-bar-wallet.error {
+  border-color: #f87171;
+  color: #f87171;
+}
+
+.network-bar-wallet:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 /* Desktop: always show navbar-collapse */
 @media (min-width: 992px) {
   .navbar-collapse {

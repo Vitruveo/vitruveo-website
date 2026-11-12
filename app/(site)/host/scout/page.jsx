@@ -72,7 +72,8 @@ export default function AIScoutDemoPage() {
         'Content-Type': 'application/json',
       },
       bodyTemplate: bodyTemplate,
-      bodyValues: [riskProfile, email, pastProjects.trim() || 'none specified'],
+      // JSON-escape free text: values are substituted into the JSON template as-is
+      bodyValues: [riskProfile, email, JSON.stringify(pastProjects.trim() || 'none specified').slice(1, -1)],
     });
 
     const result = await submit(payload);

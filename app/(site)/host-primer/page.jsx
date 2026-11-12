@@ -40,12 +40,15 @@ headerValues[0] = "application/json";
 // Encrypted value - prefix with |
 headerValues[1] = "|04abc123...def456";  // Encrypted API key
 
-registry.addRequest(
+uint256 requestId = registry.addRequest(
+    validator,                                            // validator node address
     "https://api.example.com/webhook",
-    '{"Content-Type":"$1","Authorization":"Bearer $2"}',
+    '{"Content-Type":"$1","Authorization":"Bearer $2"}',  // header template
     headerValues,
-    ...
-);`;
+    '{"event":"$1"}',                                     // body template
+    bodyValues
+);
+(bool ok, ) = HOST.call{gas: 130000}(abi.encode(requestId));`;
 
 export default function HostPrimerPage() {
   return (
@@ -206,16 +209,16 @@ export default function HostPrimerPage() {
             <div className="col-lg-11">
               <h4 className="text-white mb-3">Validator Onboarding</h4>
               <p className="text-muted-light mb-3">
-                A Validator Node signals its availability to process HOST requests by calling
-                <code className="text-vtru-green ms-1">registerValidator(owner)</code> on the Registry.
+                A Validator Node is made available to process HOST requests when the Registry admin calls
+                <code className="text-vtru-green ms-1">registerValidator(name, publicKey, owner, price, nodeAddress)</code> on the Registry.
               </p>
               <div className="row g-3">
                 <div className="col-md-6">
                   <div className="card card-dark p-3 rounded-3">
                     <h6 className="text-vtru-green mb-2">Mechanism</h6>
                     <p className="text-muted-light small mb-0">
-                      The Validator signs this transaction with their node key, proving ownership of the
-                      infrastructure that will execute HOST requests.
+                      The registration records the node address and the node&apos;s public key, which clients use
+                      to encrypt values that only that node can decrypt.
                     </p>
                   </div>
                 </div>
@@ -240,15 +243,14 @@ export default function HostPrimerPage() {
             <div className="col-lg-11">
               <h4 className="text-white mb-3">Developer Access Request</h4>
               <p className="text-muted-light mb-3">
-                A Developer who wishes to utilize a specific Validator's node must request permission on-chain.
+                A Developer who wishes to utilize a specific Validator's node must request permission from the Validator's Owner.
               </p>
               <div className="row g-3">
                 <div className="col-md-6">
                   <div className="card card-dark p-3 rounded-3">
                     <h6 className="text-vtru-green mb-2">Action</h6>
                     <p className="text-muted-light small mb-0">
-                      The User calls <code className="text-vtru-green">requestAccess(validatorNodeAddress)</code>
-                      to formally request permission to use that validator's services.
+                      The User asks the Validator's Owner for permission to use that validator's services.
                     </p>
                   </div>
                 </div>
@@ -256,8 +258,8 @@ export default function HostPrimerPage() {
                   <div className="card card-dark p-3 rounded-3">
                     <h6 className="text-vtru-green mb-2">Approval</h6>
                     <p className="text-muted-light small mb-0">
-                      The Validator's Owner Address monitors these requests and submits an approval
-                      transaction to whitelist the User's address.
+                      The Validator's Owner Address calls <code className="text-vtru-green">authorizeUser(validatorNodeAddress, user, true)</code>
+                      to whitelist the User's address.
                     </p>
                   </div>
                 </div>
@@ -280,7 +282,7 @@ export default function HostPrimerPage() {
                   <div className="card card-dark p-3 rounded-3">
                     <h6 className="text-vtru-green mb-2">Action</h6>
                     <p className="text-muted-light small mb-0">
-                      The User calls <code className="text-vtru-green">registerContract(validatorNodeAddress, contractAddress)</code>
+                      The User calls <code className="text-vtru-green">authorizeContract(validatorNodeAddress, contractAddress, true)</code>
                       to whitelist their contract.
                     </p>
                   </div>
@@ -318,10 +320,12 @@ export default function HostPrimerPage() {
                     </p>
                     <div className="code-block mb-3">
                       <pre className="mb-0">{`addRequest(
-  url,      // Target endpoint
-  payload,  // JSON body
-  headers,  // HTTP headers
-  nodes     // Validator addresses
+  validator,     // Validator node address
+  url,           // Target endpoint
+  headerInput,   // Header JSON template or template name
+  headerValues,  // Values for $1, $2, ...
+  bodyInput,     // Body JSON template or template name
+  bodyValues
 ) → requestID`}</pre>
                     </div>
                     <ul className="text-muted-light small mb-0">
@@ -334,11 +338,11 @@ export default function HostPrimerPage() {
                   <div className="card card-dark p-4 rounded-3 h-100" style={{ borderTop: '3px solid var(--vtru-green)' }}>
                     <h5 className="text-vtru-green mb-3">Step B: Execution</h5>
                     <p className="text-muted-light mb-3">
-                      The contract immediately invokes the HOST Precompile via static call:
+                      The contract immediately invokes the HOST Precompile via static call (at least 125,000 gas):
                     </p>
                     <div className="code-block mb-3">
                       <pre className="mb-0">{`(HOST_PRECOMPILE).staticcall(
-  requestID
+  abi.encode(requestID)
 )`}</pre>
                     </div>
                     <ul className="text-muted-light small mb-0">
