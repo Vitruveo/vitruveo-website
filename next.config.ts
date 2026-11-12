@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   experimental: {
     ppr: true,
   },
+  async redirects() {
+    return [{ source: "/about", destination: "/ecosystem", permanent: true }];
+  },
   images: {
     remotePatterns: [
       {

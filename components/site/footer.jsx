@@ -47,7 +47,7 @@ export function SiteFooter() {
             <h6 className="text-white mb-3">Quick Links</h6>
             <ul className="list-unstyled small">
               <li className="mb-2"><Link href="/">Home</Link></li>
-              <li className="mb-2"><Link href="/about">About</Link></li>
+              <li className="mb-2"><Link href="/ecosystem">Ecosystem</Link></li>
             </ul>
           </div>
 

@@ -92,16 +92,13 @@ export function SiteHeader() {
         <div className={`navbar-collapse ${mounted && isOpen ? 'show' : ''}`}>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link href="/" className="nav-link" onClick={closeMenu}>Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/about" className="nav-link" onClick={closeMenu}>About</Link>
-            </li>
-            <li className="nav-item">
-              <Link href="/host" className="nav-link" onClick={closeMenu}>HOST</Link>
+              <Link href="/ecosystem" className="nav-link" onClick={closeMenu}>Ecosystem</Link>
             </li>
             <li className="nav-item">
               <Link href="/developers" className="nav-link" onClick={closeMenu}>Developers</Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/host" className="nav-link" onClick={closeMenu}>HOST</Link>
             </li>
             <li className="nav-item">
               <Link href="/chat" className="nav-link" onClick={closeMenu}>AI Chat</Link>
