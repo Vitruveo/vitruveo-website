@@ -45,7 +45,7 @@ body {
   align-items: center !important;
   gap: 0.5rem;
   list-style: none !important;
-  margin: 0 !important;
+  margin: 0 0 0 auto !important;
   padding: 0 !important;
 }
 
@@ -1288,4 +1288,225 @@ a:hover .pj-arrow {
 .pj-card-soon .pj-logo-combo svg {
   width: 40px;
   height: 40px;
+}
+
+/* ===== Brands page ===== */
+.bk-page {
+  padding: 48px 0 80px;
+}
+
+.bk-wrap {
+  padding-left: clamp(16px, 3vw, 48px);
+  padding-right: clamp(16px, 3vw, 48px);
+}
+
+.bk-tabs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.bk-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.75rem 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.bk-tab:hover {
+  color: #fff;
+}
+
+.bk-tab.active {
+  color: #fff;
+  border-bottom-color: var(--vtru-green);
+}
+
+.bk-zip {
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.bk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .bk-zip {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+.bk-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bk-preview {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, #ececec 25%, transparent 25%),
+    linear-gradient(-45deg, #ececec 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ececec 75%),
+    linear-gradient(-45deg, transparent 75%, #ececec 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.bk-preview-dark {
+  background: #000000;
+}
+
+.bk-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.bk-frame img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Circle and square marks render at their canvas size */
+.bk-frame-circle,
+.bk-frame-square {
+  width: 140px;
+  height: 140px;
+}
+
+.bk-frame-circle {
+  border-radius: 50%;
+}
+
+.bk-frame-circle img,
+.bk-frame-square img {
+  width: 100%;
+  height: 100%;
+}
+
+.bk-meta {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+}
+
+.bk-label {
+  font-weight: 600;
+  color: #fff;
+}
+
+.bk-note {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.35rem;
+}
+
+.bk-file {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  word-break: break-all;
+}
+
+.bk-dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.bk-dl a {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.bk-dl a:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Brand tile on the ecosystem page */
+.bk-tile-marks {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.bk-tile-marks img {
+  width: 56px;
+  height: 56px;
+}
+
+/* Header dropdown */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  min-width: 170px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(10, 10, 10, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: none;
+  z-index: 1050;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  display: block;
+}
+
+@media (max-width: 991.98px) {
+  .nav-dropdown-menu {
+    position: static;
+    display: block;
+    border: none;
+    background: none;
+    padding: 0 0 0 1rem;
+  }
 }

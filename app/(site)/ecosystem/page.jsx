@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Ecosystem - Vitruveo',
@@ -410,6 +411,30 @@ export default function EcosystemPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Brands */}
+      <section id="brands" className="pj-section pt-0">
+        <div className="container">
+          <Link href="/ecosystem/brands" className="pj-join" style={accent('#b04cff', '#4ab0ff')}>
+            <div className="bk-tile-marks">
+              <Image src="/brands/vitruveo/vitruveo-logomark.svg" alt="" width={56} height={56} />
+              <Image src="/brands/pretrend/pretrend-logomark.svg" alt="" width={56} height={56} />
+              <Image src="/brands/vtruscope/vtruscope-logomark.svg" alt="" width={56} height={56} />
+              <Image src="/brands/aiwars/aiwars-logo-dark.svg" alt="" width={110} height={28} style={{ width: 110, height: 'auto' }} />
+              <Image src="/brands/verticalfoundation/verticalfoundation-logomark.svg" alt="" width={56} height={56} />
+            </div>
+            <div className="flex-grow-1">
+              <h2 className="h3 fw-bold text-white mb-2">Brands</h2>
+              <p className="text-muted-custom mb-0">
+                Logos and logomarks for every ecosystem brand, in SVG and PNG.
+              </p>
+            </div>
+            <span className="pj-btn-primary flex-shrink-0">
+              Brands <Arrow />
+            </span>
+          </Link>
         </div>
       </section>
     </div>
