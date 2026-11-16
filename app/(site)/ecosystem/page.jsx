@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Ecosystem - Vitruveo',
   description:
-    'Projects running on Vitruveo: Pretrend, Multisig, VTRU Bridge, USDT Bridge, VNS, VIBE, the Vitruveo Explorer, VStats, and Quadplot, with Coinveyor, AIGIS, and Instagraphic coming soon.',
+    'Projects running on Vitruveo: Pretrend, Multisig, VTRU Bridge, USDT Bridge, VNS, VIBE, the Vitruveo Explorer, VStats, and Quadplot, with Coinveyor and Instagraphic coming soon.',
 };
 
 const accent = (a, b) => ({ '--pj-a': a, '--pj-b': b });
@@ -170,14 +170,6 @@ const ECOSYSTEM = [
   },
 ];
 
-const AigisMark = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true" className="flex-shrink-0">
-    <circle cx="16" cy="16" r="14" stroke="#38bdf8" strokeWidth="1.5" />
-    <path d="M4 16h24M16 2c5 4 5 24 0 28M16 2c-5 4-5 24 0 28" stroke="#38bdf8" strokeWidth="1" opacity="0.6" />
-    <circle cx="21" cy="11" r="3" fill="#a78bfa" />
-  </svg>
-);
-
 const COMING_SOON = [
   {
     name: 'Coinveyor',
@@ -191,18 +183,6 @@ const COMING_SOON = [
     mark: <Image src="/projects/coinveyor-mark.svg" alt="" width={52} height={52} />,
     blurb: 'Every 15 minutes, AI puts a new meme coin on the chain. Coinveyors decide whether it gets minted.',
     features: ['A fresh AI-made coin every 15 minutes', 'USDT liquidity round, split pro rata', 'PancakeSwap v3 pool, LP locked forever'],
-  },
-  {
-    name: 'AIGIS',
-    tag: 'AI geospatial intelligence',
-    href: 'https://aigis.studio',
-    host: 'aigis.studio',
-    a: '#38bdf8',
-    b: '#a78bfa',
-    logo: <AigisMark size={48} />,
-    mark: <AigisMark size={56} />,
-    blurb: 'Turn documents, spreadsheets, images, and news into animated time-series maps.',
-    features: ['Finds every event with a place and a time', 'Spots bursts, hotspots, outliers, and silences', 'Ask the map questions in plain language', 'Publish to Vitruveo'],
   },
   {
     name: 'Instagraphic',
